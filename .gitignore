@@ -1,5 +1,5 @@
 extra-commands.sh
-cyberteam-local-cloud
+lando-local-cloud
 
 # OS X
 .DS_Store
