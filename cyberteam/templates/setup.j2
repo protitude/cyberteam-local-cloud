@@ -1,0 +1,9 @@
+#! /bin/bash
+
+systemctl restart docker
+
+git clone git@github.com:necyberteam/cyberteam_drupal.git
+cd cyberteam_drupal
+composer install --ignore-platform-reqs -n
+vendor/bin/blt amp:landosetup {{ github_token }} {{ uid }}
+

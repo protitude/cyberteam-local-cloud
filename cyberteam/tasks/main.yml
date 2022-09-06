@@ -1,0 +1,11 @@
+---
+- name: Copy setup script
+  ansible.builtin.template:
+    src: templates/setup.j2
+    dest: "/home/{{ new_user }}/setup.sh"
+    owner: "{{ new_user }}"
+    group: "{{ new_user }}"
+    mode: 'u+x'
+- name: Run setup script on login
+  ansible.builtin.shell:
+    cmd: echo /home/{{ new_user}}/setup.sh >> /home/{{ new_user }}/.zshrc
