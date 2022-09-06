@@ -28,7 +28,7 @@ ansible-galaxy install -r requirements.yml
 
 ansible-playbook --ask-vault-pass -i inventory/hosts.ini playbook.yml
 
-if [ ! -f "extra-commands.sh" ]; then
-  ./extra-commands.sh
+if [ -f "extra-commands.sh" ]; then
+  ./extra-commands.sh $linode_username $linode_ip
 fi
 
