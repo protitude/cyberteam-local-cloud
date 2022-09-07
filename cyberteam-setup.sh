@@ -1,8 +1,14 @@
 #!/bin/bash
-echo Input linode ip
-read linode_ip
-echo Input username
-read linode_username
+if [ $# -eq 0 ]
+  then
+    echo Input linode ip
+    read linode_ip
+    echo Input username
+    read linode_username
+  else
+    linode_username=$1
+    linode_ip=$2
+fi
 
 git clone git@github.com:protitude/lando-local-cloud.git
 cd lando-local-cloud
