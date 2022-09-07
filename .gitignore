@@ -1,5 +1,6 @@
 extra-commands.sh
 lando-local-cloud
+linode.sh
 
 # OS X
 .DS_Store
