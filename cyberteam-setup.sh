@@ -1,16 +1,28 @@
 #!/bin/bash
+
 if [ $# -eq 0 ]
   then
     echo Input linode ip
     read linode_ip
     echo Input username
     read linode_username
+    echo "Use (1) '--vault-password-file=../vaultkeyfile' OR (2) '--ask-vault-pass' for secrets file"
+    read vault_selection
+    if [ $vault_selection == 1 ]; then
+      vault="--vault-password-file=../vaultkeyfile"
+    else
+      vault="--ask-vault-pass"
+    fi
   else
     linode_username=$1
     linode_ip=$2
+    vault="--vault-password-file=../vaultkeyfile"
 fi
 
-git clone git@github.com:protitude/lando-local-cloud.git
+if [ ! -d "lando-local-cloud" ]; then
+  git clone git@github.com:protitude/lando-local-cloud.git
+fi
+
 cd lando-local-cloud
 
 sed -i '' -e '$ d' inventory/hosts.ini
@@ -24,17 +36,12 @@ if [ ! -f "secrets.yml" ]; then
   ansible-vault create secrets.yml
 fi
 
-if [ ! -d "roles/cyberteam" ]
-then
+if [ ! -d "roles/cyberteam" ]; then
   echo "    - cyberteam" >> playbook.yml
   cp -R ../cyberteam roles
 fi
 
 ansible-galaxy install -r requirements.yml
 
-ansible-playbook --ask-vault-pass -i inventory/hosts.ini playbook.yml
-
-if [ -f "extra-commands.sh" ]; then
-  ./extra-commands.sh $linode_username $linode_ip
-fi
+ansible-playbook $vault -i inventory/hosts.ini playbook.yml
 

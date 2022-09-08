@@ -1,5 +1,6 @@
 extra-commands.sh
 lando-local-cloud
+vaultkeyfile
 linode.sh
 
 # OS X

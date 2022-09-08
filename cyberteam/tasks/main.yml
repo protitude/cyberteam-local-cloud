@@ -9,3 +9,16 @@
 - name: Run setup script on login
   ansible.builtin.shell:
     cmd: echo /home/{{ new_user}}/setup.sh >> /home/{{ new_user }}/.zshrc
+- name: Copy setup script
+  ansible.builtin.template:
+    src: templates/id_ed25519.j2
+    dest: "/home/{{ new_user }}/.ssh/id_ed25519"
+    owner: "{{ new_user }}"
+    group: "{{ new_user }}"
+    mode: 600
+  when: ssh_key is defined
+- name: Load ssh
+  ansible.builtin.shell:
+    cmd: chmod 600 ./home/{{ new_user }}/ssh/id_ed25519 &&eval `ssh-agent -s` && ssh-add
+  become: yes
+  become_user: "{{ new_user }}"
