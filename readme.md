@@ -15,3 +15,10 @@ ansible-vault create secrets.yml --vault-password-file=vaultkeyfile
 ```
 
 See the ```example-secrets.yml``` file to get an example of all of the variables you should place in this file.
+
+## First login
+On your first login, the server will kick off a setup script that will install the dotfiles and then run the cyberteam setup. Once completed you should be ready to co and lando will be running the site. You may delete the setup.sh script in your home directory once everything has run smoothly.
+
+```
+rm setup.sh
+```

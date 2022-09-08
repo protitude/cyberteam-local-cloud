@@ -19,6 +19,6 @@
   when: ssh_key is defined
 - name: Load ssh
   ansible.builtin.shell:
-    cmd: chmod 600 ./home/{{ new_user }}/ssh/id_ed25519 &&eval `ssh-agent -s` && ssh-add
+    cmd: chmod 600 /home/{{ new_user }}/.ssh/id_ed25519 && eval `ssh-agent -s` && ssh-add
   become: yes
   become_user: "{{ new_user }}"
