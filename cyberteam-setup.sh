@@ -42,6 +42,8 @@ if [ ! -d "roles/cyberteam" ]; then
 fi
 
 ansible-galaxy install -r requirements.yml
-
-ansible-playbook $vault -i inventory/hosts.ini playbook.yml
+# If root user, run the below command
+ansible-playbook $vault -i inventory/hosts.ini --skip-tags "user_update" playbook.yml
+# If not root user, run the below command
+#ansible-playbook $vault -i inventory/hosts.ini --skip-tags "user_create" playbook.yml
 
